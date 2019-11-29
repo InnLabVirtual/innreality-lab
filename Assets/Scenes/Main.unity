@@ -7958,12 +7958,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863138620}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3288a483f21f3504bbab7faaea637116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_GameManager: {fileID: 1863138623}
+  m_Recorder: {fileID: 1108883489103889183}
+  m_Voice: {fileID: 5529090687532330410}
 --- !u!114 &1863138623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7986,7 +7988,7 @@ MonoBehaviour:
   m_PostItPrefab: {fileID: 1618883575864055436, guid: fef235ebf76da6746988a44e2456a3d9,
     type: 3}
   m_PostItContext: {fileID: 1710001385}
-  m_VRState: 0
+  m_VRState: 1
   m_TempPlayerObject: {fileID: 4451782214760922471}
   m_Voice: {fileID: 5529090687532330409}
 --- !u!1 &1877781154
@@ -8779,6 +8781,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6386471545094610117, guid: 2bd4692564aec0a44b5e1eabe55b5bb4,
+        type: 3}
+      propertyPath: voiceDetection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6386471545094610117, guid: 2bd4692564aec0a44b5e1eabe55b5bb4,
+        type: 3}
+      propertyPath: unityMicrophoneDevice
+      value: "Micr\xF3fono (HTC Vive)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bd4692564aec0a44b5e1eabe55b5bb4, type: 3}
@@ -10097,6 +10109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Pointer: {fileID: 4451782214047375098}
+  m_GameManager: {fileID: 1863138623}
 --- !u!1 &2000527902288510334
 GameObject:
   m_ObjectHideFlags: 0
@@ -12072,7 +12085,7 @@ PrefabInstance:
     - target: {fileID: 7949867569115068654, guid: e34ed511fb45f2849a53e98192168e2b,
         type: 3}
       propertyPath: bottom.onPress.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7949867569115068654, guid: e34ed511fb45f2849a53e98192168e2b,
         type: 3}
@@ -12825,6 +12838,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoConnect: 1
   autoTransmit: 1
+--- !u!114 &5529090687532330410 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2417888351997332084, guid: 04009142c08b7a44a80d6f48221e9622,
+    type: 3}
+  m_PrefabInstance: {fileID: 5529090687532330407}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5529090687532330408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 697c1cda529a1419782f2a2e3afe37a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6601913947713194713
 PrefabInstance:
   m_ObjectHideFlags: 0

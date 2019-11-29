@@ -138,26 +138,45 @@ public class GameManager : MonoBehaviour
 
     public void AddPost(SocketManager.PostInProject newPost)
     {
-        PostIt post = Instantiate(m_PostItPrefab, new Vector3(0, 0, 0), Quaternion.identity, null);
-        post.m_SocketManager = m_SocketManager;
-        post.SetData(newPost);
+        if (newPost.type == "in")
+        {
 
-        m_Posts.Add(post);
+        }
+        if (newPost.type == "none")
+        {
+            PostIt post = Instantiate(m_PostItPrefab, new Vector3(0, 0, 0), Quaternion.identity, null);
+            post.m_SocketManager = m_SocketManager;
+            post.SetData(newPost);
+
+            m_Posts.Add(post);
+        }
+        if (newPost.type == "vr")
+        {
+
+            Vector3 posV = m_TempPlayerObject.transform.position;
+            Quaternion rotQ = m_TempPlayerObject.transform.rotation;
+
+            PostIt post = Instantiate(m_PostItPrefab, posV, rotQ, null);
+            post.m_SocketManager = m_SocketManager;
+            post.SetData(newPost);
+
+            string pos = posV.x + "/" + posV.y + "/" + posV.z;
+            string rot = rotQ.eulerAngles.x + "/" + rotQ.eulerAngles.y + "/" + rotQ.eulerAngles.z;
+
+            post.m_Data.pos = pos;
+            post.m_Data.rot = rot;
+
+            post.m_Data.type = "none";
+
+            m_Posts.Add(post);
+
+            m_SocketManager.Action_UpdatePost(post.m_Data);
+        }
     }
 
     public void TryCleanProject()
     {
         m_SocketManager.Action_CleanProject();
-    }
-
-    public void AddPostItVR()
-    {
-        PostIt newPostItObject = Instantiate(m_PostItPrefab, m_TempPlayerObject.transform.position, m_TempPlayerObject.transform.rotation);
-        newPostItObject.GetComponentInChildren<TMPro.TextMeshPro>().text = "Post-it Escaneado";
-        newPostItObject.GetComponent<PostIt>().ChangeMaterialOnStart("0");
-
-        newPostItObject.GetComponent<PostIt>().m_WorldContextMenu = m_PostItContext;
-        newPostItObject.transform.SetParent(m_PostItContext.transform);
     }
 
     private void OnDestroy()

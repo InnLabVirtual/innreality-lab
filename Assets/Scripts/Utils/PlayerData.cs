@@ -28,7 +28,7 @@ public class PlayerData : MonoBehaviour
         if (m_UserData != null && m_GameManager && transform.hasChanged)
         {
             Vector3 pos = transform.position;
-            m_GameManager.m_SocketManager.Action_WritePlaterPosition(pos.x, pos.y, pos.z);
+            m_GameManager.m_SocketManager.Action_WritePlayerPosition(pos.x, pos.y, pos.z);
             transform.hasChanged = false;
         }
     }

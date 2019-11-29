@@ -144,13 +144,30 @@ public class SocketManager : MonoBehaviour
         public string pos;
         public bool connected;
         public string name;
+        public bool pointer;
+        public string pointer_pos;
 
-        public UserInProject(bool connected, string pos, string uid, string name)
+        public UserInProject(bool connected, string pos, string uid, string name, bool pointer, string pointer_pos)
         {
             this.connected = connected;
             this.pos = pos;
             this.uid = uid;
             this.name = name;
+            this.pointer = pointer;
+            this.pointer_pos = pointer_pos;
+        }
+    }
+
+    [Serializable]
+    public class PointerUser
+    {
+        public string pointer_pos;
+        public bool pointer;
+
+        public PointerUser(string pointer_pos, bool pointer)
+        {
+            this.pointer = pointer;
+            this.pointer_pos = pointer_pos;
         }
     }
 
@@ -176,9 +193,9 @@ public class SocketManager : MonoBehaviour
         public string pos;
         public string rot;
         public string id;
-        public bool folder;
+        public string type;
 
-        public PostInProject(string autor, string color, string data, string pos, string rot, string id, bool folder)
+        public PostInProject(string autor, string color, string data, string pos, string rot, string id, string type)
         {
             this.autor = autor;
             this.color = color;
@@ -186,7 +203,7 @@ public class SocketManager : MonoBehaviour
             this.pos = pos;
             this.rot = rot;
             this.id = id;
-            this.folder = folder;
+            this.type = type;
         }
     }
 
@@ -327,7 +344,7 @@ public class SocketManager : MonoBehaviour
     {
         SceneManager.LoadScene("Login", LoadSceneMode.Single);
     }
-    public void Action_WritePlaterPosition(float x, float y, float z)
+    public void Action_WritePlayerPosition(float x, float y, float z)
     {
         string pos = x + "/" + y + "/" + z;
 
@@ -337,6 +354,18 @@ public class SocketManager : MonoBehaviour
 
         m_SocketIo.Emit("USER: update position", json);
     }
+
+    public void Action_WritePointerPosition(float x, float y, float z, bool state)
+    {
+        string pos = x + "/" + y + "/" + z;
+
+        PointerUser data = new PointerUser(pos, state);
+        string str = JsonUtility.ToJson(data);
+        JSONObject json = new JSONObject(str);
+
+        m_SocketIo.Emit("USER: update pointer", json);
+    }
+
     public void Action_SelectProject(string id)
     {
         MSJ m = new MSJ(id);

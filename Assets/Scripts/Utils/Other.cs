@@ -7,6 +7,14 @@ public class Other : MonoBehaviour
 
     public SocketManager.UserInProject m_UserData { get; set; }
 
+    public GameObject m_Dot;
+    private LineRenderer m_Line;
+
+    private void Awake()
+    {
+        m_Line = GetComponent<LineRenderer>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +57,24 @@ public class Other : MonoBehaviour
         if (m_UserData.name != null)
         {
             GetComponentInChildren<TMPro.TextMeshPro>().text = m_UserData.name;
+        }
+
+        if (m_UserData.pointer)
+        {
+            m_Dot.gameObject.SetActive(true);
+            m_Line.enabled = true;
+
+            string[] p = data.pos.Split(char.Parse("/"));
+
+            m_Dot.gameObject.transform.position = new Vector3(float.Parse(p[0]), float.Parse(p[1]), float.Parse(p[2]));
+
+            m_Line.SetPosition(0, transform.position);
+            m_Line.SetPosition(1, m_Dot.gameObject.transform.position);
+        }
+        else
+        {
+            m_Dot.gameObject.SetActive(false);
+            m_Line.enabled = false;
         }
     }
 

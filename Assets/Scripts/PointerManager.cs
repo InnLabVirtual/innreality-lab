@@ -12,6 +12,8 @@ public class PointerManager : MonoBehaviour
 
     private bool pointerState;
 
+    public GameManager m_GameManager;
+
     private void Awake()
     {
         pointerState = false;
@@ -27,7 +29,12 @@ public class PointerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (m_GameManager && pointerState && m_Pointer.m_Dot.gameObject.transform.hasChanged)
+        {
+            Vector3 pos = m_Pointer.m_Dot.gameObject.transform.position;
+            m_GameManager.m_SocketManager.Action_WritePointerPosition(pos.x, pos.y, pos.z, pointerState);
+            m_Pointer.m_Dot.gameObject.transform.hasChanged = false;
+        }
     }
 
     public void SetPointerState()
@@ -36,6 +43,12 @@ public class PointerManager : MonoBehaviour
         {
             pointerState = !pointerState;
             m_PointerObject.SetActive(pointerState);
+
+            if (m_GameManager)
+            {
+                Vector3 pos = m_Pointer.m_Dot.gameObject.transform.position;
+                m_GameManager.m_SocketManager.Action_WritePointerPosition(pos.x, pos.y, pos.z, pointerState);
+            }
         }
     }
 }
