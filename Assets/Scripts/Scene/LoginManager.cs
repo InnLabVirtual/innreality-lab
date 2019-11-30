@@ -34,7 +34,7 @@ public class LoginManager : MonoBehaviour
         if (!m_InputEmail || !m_InputPass)
             return;
 
-        m_SocketManager.Action_LoginEmailPass(m_InputEmail.text, m_InputPass.text);
-        //m_SocketManager.Action_LoginEmailPass("san.or.gue@gmail.com", "santy0630");
+        //m_SocketManager.Action_LoginEmailPass(m_InputEmail.text, m_InputPass.text);
+        m_SocketManager.Action_LoginEmailPass("san.or.gue@gmail.com", "santy0630");
     }
 }

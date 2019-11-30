@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public PlayerData m_Player { get; set; }
     public List<Other> m_Others { get; set; }
     public List<PostIt> m_Posts { get; set; }
+    public List<SocketManager.PostInProject> m_PostsFolder { get; set; }
 
     public ConnectAndJoin_Custom m_Voice;
 
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
     {
         m_Others = new List<Other>();
         m_Posts = new List<PostIt>();
+        m_PostsFolder = new List<SocketManager.PostInProject>();
         m_Camera.gameObject.SetActive(true);
 
         if (m_VRState)
@@ -136,11 +138,36 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SetFolderPostIt(SocketManager.PostInProject newPost)
+    {
+        m_PostsFolder.Remove(newPost);
+
+        Vector3 posV = m_TempPlayerObject.transform.position;
+        Quaternion rotQ = m_TempPlayerObject.transform.rotation;
+
+        PostIt post = Instantiate(m_PostItPrefab, posV, rotQ, null);
+        post.m_SocketManager = m_SocketManager;
+
+        string pos = posV.x + "/" + posV.y + "/" + posV.z;
+        string rot = rotQ.eulerAngles.x + "/" + rotQ.eulerAngles.y + "/" + rotQ.eulerAngles.z;
+
+        newPost.pos = pos;
+        newPost.rot = rot;
+        newPost.type = "none";
+
+        m_SocketManager.Action_UpdatePost(newPost);
+
+        post.SetData(newPost);
+        m_Posts.Add(post);
+
+        
+    }
+
     public void AddPost(SocketManager.PostInProject newPost)
     {
         if (newPost.type == "in")
         {
-
+            m_PostsFolder.Add(newPost);
         }
         if (newPost.type == "none")
         {
@@ -150,9 +177,8 @@ public class GameManager : MonoBehaviour
 
             m_Posts.Add(post);
         }
-        if (newPost.type == "vr")
+        if (newPost.type == "vr" && newPost.autor == m_Player.m_UserData.uid)
         {
-
             Vector3 posV = m_TempPlayerObject.transform.position;
             Quaternion rotQ = m_TempPlayerObject.transform.rotation;
 
