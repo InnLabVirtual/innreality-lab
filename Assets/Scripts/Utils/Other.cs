@@ -10,6 +10,8 @@ public class Other : MonoBehaviour
     public GameObject m_Dot;
     private LineRenderer m_Line;
 
+    public GameObject m_Container;
+
     private void Awake()
     {
         m_Line = GetComponent<LineRenderer>();
@@ -41,7 +43,7 @@ public class Other : MonoBehaviour
         {
             pos = data.pos.Split(char.Parse("/"));
 
-            transform.position = new Vector3(float.Parse(pos[0]), float.Parse(pos[1]), float.Parse(pos[2]));
+            m_Container.transform.position = new Vector3(float.Parse(pos[0]), float.Parse(pos[1]), float.Parse(pos[2]));
         }
 
         if (m_UserData.connected)
@@ -51,12 +53,12 @@ public class Other : MonoBehaviour
         else
         {
             SetState(false);
-            transform.position = new Vector3(0, -3, 0);
+            m_Container.transform.position = new Vector3(0, -3, 0);
         }
 
         if (m_UserData.name != null)
         {
-            GetComponentInChildren<TMPro.TextMeshPro>().text = m_UserData.name;
+            m_Container.GetComponentInChildren<TMPro.TextMeshPro>().text = m_UserData.name;
         }
 
         if (m_UserData.pointer)
@@ -64,11 +66,11 @@ public class Other : MonoBehaviour
             m_Dot.gameObject.SetActive(true);
             m_Line.enabled = true;
 
-            string[] p = data.pos.Split(char.Parse("/"));
+            string[] p = data.pointer_pos.Split(char.Parse("/"));
 
             m_Dot.gameObject.transform.position = new Vector3(float.Parse(p[0]), float.Parse(p[1]), float.Parse(p[2]));
 
-            m_Line.SetPosition(0, transform.position);
+            m_Line.SetPosition(0, m_Container.transform.position);
             m_Line.SetPosition(1, m_Dot.gameObject.transform.position);
         }
         else

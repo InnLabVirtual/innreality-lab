@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject m_TempPlayerObject;
 
+    public GameObject m_TeleportObject;
+
     public PlayerData m_Player { get; set; }
     public List<Other> m_Others { get; set; }
     public List<PostIt> m_Posts { get; set; }
@@ -65,15 +67,24 @@ public class GameManager : MonoBehaviour
             {
                 if (user.m_UserData.connected)
                 {
-                    Vector3 relativePos = user.gameObject.transform.position - m_Player.transform.position;
+                    Vector3 relativePos = user.m_Container.gameObject.transform.position - m_Player.transform.position;
 
                     // the second argument, upwards, defaults to Vector3.up
                     Quaternion rot = Quaternion.LookRotation(relativePos, Vector3.up);
-                    user.gameObject.transform.rotation = rot;
+                    user.m_Container.gameObject.transform.rotation = rot;
                 }
             }
         }
-        
+
+        if (m_TeleportObject && m_TeleportObject.activeSelf)
+        {
+                    Vector3 relativePos = m_TeleportObject.gameObject.transform.position - m_Player.transform.position;
+
+                    // the second argument, upwards, defaults to Vector3.up
+                    Quaternion rot = Quaternion.LookRotation(relativePos, Vector3.up);
+                    m_TeleportObject.gameObject.transform.rotation = rot;
+        }
+
     }
 
     public void UpdateUser(SocketManager.UserInProject newUser)
