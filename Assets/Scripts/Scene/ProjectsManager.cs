@@ -33,7 +33,7 @@ public class ProjectsManager : MonoBehaviour
                 button.SetData(s);
 
                 button.gameObject.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-                button.gameObject.transform.localPosition = new Vector3(0f, 0f + (110f * i), 0f);
+                button.gameObject.transform.localPosition = new Vector3(-249f - (110f * i), 0f, 0f);
 
                 i++;
             }
