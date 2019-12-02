@@ -5,7 +5,7 @@ using UnityEngine;
 public class Help_MapaEmpatia : MonoBehaviour
 {
 
-    public GameObject m_Img, m_Video, m_Sample;
+    public GameObject[] m_Helps;
 
     private void Awake()
     {
@@ -29,25 +29,13 @@ public class Help_MapaEmpatia : MonoBehaviour
         
     }
 
-    public void SetPart(int i)
+    public void SetPart(int index)
     {
-        switch (i)
+        for (int i = 0; i < m_Helps.Length; i++)
         {
-            case 0:
-                m_Img.SetActive(true);
-                m_Video.SetActive(false);
-                m_Sample.SetActive(false);
-                break;
-            case 1:
-                m_Img.SetActive(false);
-                m_Video.SetActive(true);
-                m_Sample.SetActive(false);
-                break;
-            case 2:
-                m_Img.SetActive(false);
-                m_Video.SetActive(false);
-                m_Sample.SetActive(true);
-                break;
+            m_Helps[i].SetActive(false);
         }
+
+        m_Helps[index].SetActive(true);
     }
 }

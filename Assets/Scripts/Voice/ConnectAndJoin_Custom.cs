@@ -41,10 +41,20 @@ using Photon.Voice.Unity;
         }
 
          void Start()
-        {
-        }
+         {
+         }
 
         private void OnEnable()
+        {
+            StartCall();
+        }
+
+        private void OnDisable()
+        {
+            FinishCall();
+        }
+
+        public void StartCall()
         {
             voiceConnection.Client.AddCallbackTarget(this);
             if (this.autoConnect)
@@ -53,7 +63,7 @@ using Photon.Voice.Unity;
             }
         }
 
-        private void OnDisable()
+        public void FinishCall()
         {
             voiceConnection.Client.RemoveCallbackTarget(this);
         }
