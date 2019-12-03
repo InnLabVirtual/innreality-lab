@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
 
     public ConnectAndJoin_Custom m_Voice;
 
+    public FolderAction m_Folder;
+
     private void Awake()
     {
         m_Others = new List<Other>();
@@ -179,6 +181,11 @@ public class GameManager : MonoBehaviour
         if (newPost.type == "in")
         {
             m_PostsFolder.Add(newPost);
+
+            if (m_Folder)
+            {
+                m_Folder.LoadPosts();
+            }
         }
         if (newPost.type == "none")
         {
